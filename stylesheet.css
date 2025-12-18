@@ -59,7 +59,7 @@ body{ /*set a bunch of standard values for everything else in this project*/
     position: absolute;
     z-index: 1;
     background-color: #111;
-    top:50vh;
+    top:53vh;
     animation-name: fadeOut;
     animation-duration: 2s ;
     animation-fill-mode: forwards;
@@ -107,7 +107,7 @@ iframe{
     width:  100%;
 }
 table{
-    width:90vh;
+    width:90vw;
     margin:5vh;
 }
 td{
