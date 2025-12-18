@@ -12,7 +12,7 @@ function intro(level){
     level.worldText=[
         [-1,4, 2,6,"<h1>This will take you to the temple at the end of the level </h1> <br>  - a fast track"],
         [-1,6, 2,10,"<h1> you should not be here </h1> <br> BEGONE"],
-        [5,6, 9,8,"<h1>Welcome to my webpage!</h1> <br> use the arrow keys or w,a,s,d to move"],
+        [5,6, 9,8,"<h1>Welcome to The Cubefall Project!</h1> <br> use the arrow keys or w,a,s,d to move"],
         [17,3, 22,7,"<h1>This page was made entirely with css, html and js</h1><br> no external packages libraries or images were used at all <br> meaning this was entirely created by me! Daniel wolf. :) "],
         [40,4, 50,9,"<h1>Enjoy and explore!</h1>"],
         [69,12, 74,13,"<h1>To interact with things like noticeboards: </h1> <br> just bump into them"],

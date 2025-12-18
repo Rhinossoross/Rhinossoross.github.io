@@ -1,277 +1,183 @@
-:root{ /*this root section defines a group of global variables used throught the project to change the location of the world and rotations of the cube*/
-    --startAngleX:-14;
-    --startAngleY: 50;
-    --startAngleZ: 0;
-    --Newangle1:   0deg;
-    --Newangle2:   0deg;
-    --Ground1:     0deg; 
-    --Ground2:     0deg;
-    --worldX:      0vh;
-    --worldY:      0vh;
-    --worldZ:      0vh;
-    --zoom:        1;
-}/*use var(--angle)  and to do calulations use calc()*/
-body{ /*set a bunch of standard values for everything else in this project*/
-  position:fixed;
-  background-color: #111; /*#111*/
-  display: block;
-  margin: 0;
-  padding: 0;
-  width:100vw;
-  max-width: 240vh;
-  height:100vh;
-}
-#textspace{
-  width:80%;
-  height:40%;
-  top:10%;
-  left:10%;
-  position:absolute;
-  text-align: center;
-  text-anchor: center;
-  font-family: "Lucida Console", "Courier New", monospace;
-  color: azure;
-  font-size:1.5vh;
-  z-index: 10;
-  visibility: hidden;
-}
-.text{
-  width:100%;
-  opacity: 0;
-  position:absolute;
-  display: block;
-}
-.noticetext{
-  top:30vh;
-  left:40vh;
-  font-size: 2vh;
-  padding:2vh;
-  opacity: 0;
-  position:absolute;
-  display: block;
-  border-style:solid;
-  border-width:1vh;
-  border-radius: 1.5vh;
-  border-image: linear-gradient(to right,red, purple) 1;
-  background: rgba(2,2,2,0.4);
-}
 h1{
-  text-shadow: -0.2vh 0.2vh #555;
-  font-size:3vh;
-  
+    font-size: 6em;
+    text-shadow: -0.2vh 0.2vh #555;
+    color: #6e2;
+    text-shadow: 0.1em 0.1em 0.3em #4a2;
+    animation-name: code-fade;
+    animation-duration: 10s;
+    animation-direction: alternate-reverse;
+    animation-iteration-count: infinite;
+    animation-delay: 2s;
+    
+}
+h2 {
+    font-size: 2em;
+    color: #6e2;
+    text-shadow: 0.2em 0.1em 0.3em #4a2;
+    animation-name: code-fade;
+    animation-duration: 4s;
+    animation-direction: alternate-reverse;
+    animation-iteration-count: infinite;
+    animation-delay: 0.8s;
+    
 }
 
-#RenderSpace{perspective: 10000px;} /*set up perspective for 3d rendering*/
-.worldcoordlocator { /*define where the actual worlds centeral coordinate will be in relation to the web page 2d viewport*/           
-  top:55vh;
-  left:45vw;
-  transform: rotateX(var(--startAngleX)) rotateY(var(--startAngleY)) rotateZ(var(--startAngleZ));
-  scale:var(--zoom);
-  }
-#worldspace{transform: translatex(var(--worldX)) translatey(var(--worldY)) translatez(var(--worldZ));} /*define where the cube is in the worlds available space*/
-
-#coordshifter{
-  transform: translate3d(405vh,405vh,-0.01vh)} /*adjust for ground size*/ 
-#groundgrid{
-  width: 800vh;
-  height: 800vh;
-  transform: rotateX(90deg) translate3D(-404.9vh,-405.1vh,-16vh);
-  background-color:none;
-  background-size: 15vh 15vh;
-  background-image:
-  linear-gradient(to right,  #888 1px, transparent 1px),
-  linear-gradient(to bottom, #888 1px, transparent 1px);
-  border-radius: 100%;
+body{ /*set a bunch of standard values for everything else in this project*/
+    font-family: "Lucida Console", "Courier New", monospace;
+    color: azure;
+    display: block;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    min-height: 500%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background: linear-gradient(45deg, red, blue);
 }
-#groundshadow{
-  z-index:1;
-  top:20vh;
-  width: 200vh;
-  height: 80vh;
-  background-color: none;
-  box-shadow:0px -1px 10vh 15vh rgba(17, 17, 17, 0.4) inset,0vh -0vh 400vh 400vh rgba(17,17,17,0.4);
-  border-radius: 100%;
+.MainBlock{
+    position: relative;
+    display: inline-block;
+    height: 40vh;
+    width: 120vw;
+    left: -10vh;    
+    top: -15vh;    
+    padding: 20vh;/* ensures box shadow goes to the end of the screen*/
+    box-shadow: -5vh 24vh 12vh #111,-5vh -24vh 12vh #111;
+    background-color:none;
+    background: #111;
+    rotate: -10deg;
+    z-index: -1;
 }
-#skyshadow{ /*not currently in use*/
-  width: 280vh;
-  height: 120vh;
-  top: -15vh;
-  left:-20vh;
-  background-color: none;
-  box-shadow:0vh 0vh 30vh 25vh rgba(17,17,17,0) inset,0vh -0vh 40vh 40vh rgba(17,17,17,0);
-  border-radius: 100%;
+.content{
+    position:relative;
+    rotate: 10deg;
+    background-color: #111;
+    width: 80vw;
+    height: 60vh;
 }
-
-.cubeside {
-  width: 15vh;
-  height: 15vh;
-  background: rgba(50,256,256,0.8);
-  outline: 0.3vh solid black;
-  outline-offset: -0.3vh;
-  border-radius: 2.6vh;
+#coverall{
+    position: absolute;
+    z-index: 1;
+    background-color: #111;
+    top:50vh;
+    animation-name: fadeOut;
+    animation-duration: 2s ;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+    width :100%;
+    height:800%;
 }
 
-.wall {
-  width: 15vh;
-  height: 15vh;
-  background: #aaa;
-  content-visibility:auto;
-  /*animation-duration: 500000ms;                
-  animation-name: RainbowShift;
-  animation-iteration-count: infinite;
-  animation-timing-function: steps(64);
-  /* ^ for if you are bored and want colours*/
+#cubefall{
+    position:relative;
+    height: 50vh;
+    max-height: 50vw;
+    width: 50vw;
+    margin: 2.5vh;
+    transition: 0.05s;
+}
+#cubefall:hover{
+    height: 60vh;
+    max-height: 50vw;
+    width: 60vw;
+    margin: 0vh;
+    transition: 0.05s   
+}
+#cubefallClick{
+    position:relative;
+    top:-50vh;
+    height: 50vh;
+    max-height: 50vw;
+    width: 50vw;
+    background-color: #6e2;
+    opacity: 0%;
+    transition: 0.05s  
+} 
+#cubefallClick:hover{
+    top:-60vh;
+    height: 60vh;
+    max-height: 50vw;
+    width: 60vw;
+    margin: 0vh;
+    transition: 0.05s   
+}
+iframe{
+    border-radius: 0% ;
+    height: 100%;
+    width:  100%;
+}
+table{
+    width:90vh;
+    margin:5vh;
+}
+td{
+    font-size: 2em;
 }
 
-.located{
-  display: block; /*should be block am going to try and make this none with a js function making it block so they use minimal ram*/
-  position: absolute;
-  transform-style: preserve-3d;
-  transform-origin: 7.5vh 7.5vh -7.5vh;
-  margin: 0;
-  padding: 0;
-
-  }
 
 
-.top   {transform: rotateX(90deg)  rotatez(-90deg);}
-.right {transform: rotateY(90deg)  ;}
-.left  {transform: rotateY(-90deg) rotatez(180deg);}
-.bottom{transform: rotateX(-90deg) rotatez(90deg);}
-.back  {transform: rotateY(-180deg);}
-.front {transform: translateZ(0vh) ;}
 
-.wall.front::after{
-  content: '';
-  display: block;
-  position:relative;
-  width: 15vh;
-  height: 15vh;
-  background:rgba(255,255,255,0.5); 
-}
-.wall.back::after{
-  content: '';
-  display: block;
-  position:relative;
-  width: 15vh;
-  height: 15vh;
-  background:rgba(255,255,255,0.4); 
-}
-.wall.left{width: 60vh;}
-.wall.left::after{
-  content: '';
-  display: block;
-  position:relative;
-  width: 60vh;
-  height: 15vh;
-  background:rgba(156,156,156,0.5); 
-}
-.wall.right{width: 60vh;}
-.wall.right::after{
-  content: '';
-  display: block;
-  position:relative;
-  width: 60vh;
-  height: 15vh;
-  background:rgba(50,50,50,0.5); 
-}
-.wall.bottom{width: 60vh;}
-.wall.bottom::after{
-  content: '';
-  display: block;
-  position:relative;
-  width: 60vh;
-  height: 15vh;
-  background:rgba(120,120,120,0.5);
-}
-.wall.top{width: 60vh;}
-.wall.top::after{
-  content: '';
-  display: block;
-  position:relative;
-  width: 60vh;
-  height: 15vh;
-  background:rgba(120,120,120,0.5);
-}
-.InheritColour{
-  background:inherit;
-}
 
-.animated{
-  animation-duration: 400ms;
-  animation-fill-mode: forwards;
-  will-change: transform;
+#typeWriterText::after{
+    content: "_";
+    animation-name:blinking-text;
+    animation-iteration-count: infinite;    
+    animation-duration: 1s;
 }
-.rotatex{animation-name: RotateX;}
-.rotatey{animation-name: RotateY;}
-.rotatez{animation-name: RotateZ;}
-.movex  {animation-name: MoveX;}
-.movey  {animation-name: MoveY;}
-.bouncex{animation-name: BounceX;}
-.bouncey{animation-name: BounceY;}
-.show   {animation-name: Show;}
-.hide   {animation-name: Hide;}
-.RainbowShift{animation-name: RainbowShift;}
-.holefall{animation-name: HoleFall; animation-duration: 4s;animation-timing-function:cubic-bezier(1,-0.27,.04,1.03);}
-.stepup{animation-name:StepUp;}
-.cubestepup{animation-name:CubeStepUp;}
-@keyframes RotateZ{
-  0%  {transform: rotateZ(0deg);}
-  100%{transform: rotateZ(360deg);}
+@keyframes fadeOut{
+    from{ opacity: 100%; z-index: 1;}
+    to{ opacity: 0%; z-index:-2;}
 }
-@keyframes RotateY{
-  50% {transform:rotateZ(var(--Newangle1)) translateY(-4vh);}
-  100%{transform:rotateZ(var(--Newangle2));}
+@keyframes code-fade{
+    0% {
+        color:  #6e2;
+    }
+    27% {
+        color:  #6e2;
+    }
+    28% {
+        color:  rgb(31, 78, 16);
+    }
+    29% {
+        color:  #6e2;
+    }
+    35% {
+        color:  #4a2;
+    }
+    36% {
+        color:  rgb(31, 78, 16);
+    }
+    37% {
+        color:  #6e2;
+    }
+    85% {
+        color:  #6e2;
+    }
+    86% {
+        color:  rgb(31, 78, 16);
+    }
+    87% {
+        color:  #6e2;
+    }
+    100% {
+        color:  #4a2;
+    }
 }
-@keyframes RotateX{
-  50% {transform:rotateX(var(--Newangle1)) translateY(-4vh);}
-  100%{transform:rotateX(var(--Newangle2));}
-}
-@keyframes MoveX{
-  0%  {transform:rotateX(90deg) translate3D(-404.9vh,-405.1vh      ,-16vh);}
-  50% {transform:rotateX(90deg) translate3D(-404.9vh,var(--Ground1),-16vh);}
-  100%{transform:rotateX(90deg) translate3D(-404.9vh,var(--Ground2),-16vh);}
-}
-@keyframes MoveY{
-  0%  {transform:rotateX(90deg) translate3D(-404.9vh      ,-405.1vh,-16vh);}
-  50% {transform:rotateX(90deg) translate3D(var(--Ground1),-405.1vh,-16vh);}
-  100%{transform:rotateX(90deg) translate3D(var(--Ground2),-405.1vh,-16vh);}
-}
-  
-@keyframes BounceY{50% {transform:rotateZ(var(--Newangle1)) translatey(-1.8vh);}}
-@keyframes BounceX{50% {transform:rotateX(var(--Newangle1)) translatey(-1.8vh);}}
-
-@keyframes Show{
-  0%  {opacity:0}
-  100%{opacity:1}
-}
-@keyframes Hide{
-  0%  {opacity:1}
-  100%{opacity:0}
-}
-
-@keyframes RainbowShift{
-  0% {background: rgb(200,0,0);}
-  17% {background: rgb(200,200,0);}
-  33% {background: rgb(0,200,0);}
-  51% {background: rgb(0,200,200);}
-  68% {background: rgb(0,0,200);}
-  85%{background: rgb(200,0,200);}
-  100%{background: rgb(200,0,0);}
-}
-@keyframes HoleFall{
-  0%  {transform: translate3d(var(--worldX),var(--worldY),0vh)}
-  50%  {transform: translate3d(var(--worldX),var(--worldY),750vh)}
-  51%  {transform: translate3d(var(--worldX),var(--worldY),-750vh)}
-  80%  {transform: translate3d(var(--worldX),var(--worldY),0vh)}
-  100%  {transform: translate3d(var(--worldX),var(--worldY),0vh)}
-}  
-
-@keyframes StepUp {
-  0% {transform: translatez(0vh)}
-  100% {transform: translatez(15vh)}
-}
-@keyframes CubeStepUp {
-  0% {transform: translatey(0vh)}
-  100% {transform: translatey(-15vh)}
+@keyframes blinking-text{
+    0%{
+        visibility:visible;
+        color:  #4a2
+    }
+    50%{
+        visibility:visible;
+        color:  #4a2
+    }
+    51%{
+        visibility:hidden;
+        color:  #111
+    }
+    100%{
+        visibility:hidden;
+        color:  #111
+    }
 }
