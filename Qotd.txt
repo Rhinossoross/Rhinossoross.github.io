@@ -1,7 +1,3 @@
-Here’s a list of 100 original ridiculous, unhinged, pseudo-inspirational quotes and mangled malaphors in the spirit of Douglas Adams’ cosmic absurdity and Milton Jones’ surreal one-liners. Perfect fuel for your joke “Quote of the Day” system.
-
-“The universe is a pretty big place. If it’s just us, that’s fine. If it’s not, at least someone else is paying the heating bill.”
-“Always remember: you are unique, just like everyone else who bought that self-help book.”
 “Shoot for the moon. Even if you miss, you’ll probably hit a very expensive satellite.”
 “Life is like a box of chocolates—it’s overpriced and someone always takes the good ones first.”
 “The early bird gets the worm, but the night owl gets to sleep in and order pizza.”
@@ -25,7 +21,7 @@ Here’s a list of 100 original ridiculous, unhinged, pseudo-inspirational quote
 “Life is short. Smile while you still have teeth.”
 “Don’t count your chickens before they hatch—count them after, when they’re easier to catch.”
 “Every cloud has a silver lining, usually shaped like an upcoming bill.”
-“The light at the end of the tunnel might just be an oncoming train with excellent headlights.”
+“The light at the end of the tunnel might just be an oncoming train”
 “If you can’t beat them, join them. If you can’t join them, confuse them.”
 “Two wrongs don’t make a right, but three lefts do.”
 “Keep your friends close and your enemies closer—preferably in the same group chat for maximum drama.”
@@ -100,8 +96,6 @@ Here’s a list of 100 original ridiculous, unhinged, pseudo-inspirational quote
 “Let sleeping dogs lie—unless they’re snoring on your side of the bed.”
 “What goes around comes around, usually with interest.”
 “Carpe diem—seize the day, before it seizes you with unexpected bills.”
-Here’s another batch of 100 original ridiculous, unhinged, pseudo-inspirational quotes—this time with a heavy focus on engineering, mechatronics, robotics, and the soul-crushing futility of trying to play God with motors, code, and 3D-printed parts. Douglas Adams-style cosmic despair meets Milton Jones-level surrealism, all wrapped in the hopeless romance of invention.
-
 “Engineering: the art of turning coffee into prototypes that catch fire at 3 a.m.”
 “A robot will never love you back, but at least it won’t ghost you—it’ll just throw a segmentation fault.”
 “The difference between theory and practice is small in theory, but infinite in a burning PCB.”
