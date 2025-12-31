@@ -1,17 +1,61 @@
-        <div class= "MainBlock">
-            <div class="content" >
-                <h1 id="decoderText"> Wolfs Work </h1>
-                <h3 id="TypeWriterText">
-                This is my projects page, it has links to all my work, both academic and hobby
-                <br><br> 
-                Contact me:
-                <br><br> 
-                <strong> dan.menadue@bristol.ac.uk </strong>
-                <br><br> 
-                Or follow me on instagram:
-                <br><br> 
-                @vvolf_me
-                <br><br> 
-                :></h3>
-            </div>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Wolf's page</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="stylesheet.css">
+    </head>
+    <body>
+        <div id="decoderText" class="crtText" style="position:absolute">
+            <h1>404 PAGE NOT FOUND</h1>
+            
+            <h2>This page is missing. Try putting some other random things into the url bar... <br>maybe somthing interesting will come up <br></h2>
         </div>
+        <div class = "ScrollingBackground">
+        </div>
+    </body>
+    <script>
+        let visits = 1+ parseInt(document.cookie.split('=')[1]);
+        document.cookie = `visits=${visits}; secure; max-age = 40000`; //40,000 seconds is about half a day
+        console.log(document.cookie)
+
+        const   alphabet = "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWKYZ1234567890!£$%^&()[]#~;:'@,./<>?";
+        const decoderText = document.getElementById("decoderText");
+        var    hiddenText = decoderText.innerHTML;
+        if (visits > 4)  hiddenText += "<br> though it doesnt seem to be working...<br> keep trying im sure something will happen eventually <br>";
+        else if (visits > 10) hiddenText += "<br> well i guess not, how unfortunate <br>you can stop trying now<br>";
+        else if (visits > 20) hiddenText += "<br> srysly stop it dude <br>";
+        else if (visits > 25) hiddenText += "<br> fine. <br><br> Potato <br><br>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⠤⠴⠒⠋⠉⠉⠉⠉⠙⠒⠲⠤⢴⣤⣄<br>⠀⠀⠀⠀⠀⠀⢀⣀⡴⠋⠁⠀⠀⠳⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠳⡄⠀<br>⠀⠀⠀⢀⠴⠊⠁⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠆⠘⡄<br>⠀⢀⠜⠁⠀⠀⠀⠀⠑⠀⠀⠀⠀⠀⢸⠓⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡤⠀⢱<br>⢀⠎⠀⠀⠀⠀⠀⡤⣤⡀⠀⠀⠀⠀⠀⠉⠀⠀⠀⠀⠀⢀⠀⠀⠀⠀⠀⠀⠀⢸<br>⡎⠀⠀⠀⠀⠀⠀⠈⠒⠣⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠄⢀⣀⣠⠏<br>⣧⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⠀⠀⠀⠀⠀⠀⣨⠁⠀<br>⡟⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠀⠀⠀⠀⠀⠀⠀⠈⠛⠃⠀⠀⠀⣠⡾⠃⠀⠀<br>⢱⡈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠑⠠⡄⠀⠀⠀⠀⠀⢀⣠⠀⣀⡴⠋⠀⠀⠀⠀<br>⠀⠑⢤⣀⠀⠀⣖⡆⠀⠀⠀⢄⡀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⠏⠀⠀⠀⠀⠀⠀<br>⠀⠀⠀⠈⠙⠒⠢⠤⠤⣄⣀⣠⣤⣬⠶⠶⠦⠤⠶⠖⠚⠋";
+        let previousTimeStamp = 1000;
+        let decoderElapsedSeconds = 0;
+        let SecpmdsPerChar = 0.1;
+        decoderText.addEventListener("click",()=> {decoderElapsedSeconds=0;})
+        //animation mainloop
+        const animationLoop = (currentTimestamp) => {
+            let seccondssincelastframe = (currentTimestamp - previousTimeStamp) /1000;
+            previousTimeStamp = currentTimestamp;
+            decoderElapsedSeconds += seccondssincelastframe;
+            
+            const charactersToReveal = decoderElapsedSeconds/SecpmdsPerChar
+            let animatedText="";
+            let finished =false;
+            for (let i = 0; i < hiddenText.length; i++) {
+                if (finished==true) continue;
+                let char = "";
+                if (i<charactersToReveal) {
+                    char = hiddenText[i]
+                }else{
+                    char = alphabet[Math.floor(Math.random()*alphabet.length)]
+                    finished = true
+                }
+                animatedText +=char;
+            }
+            decoderText.innerHTML = animatedText;
+            window.requestAnimationFrame(animationLoop);
+        }
+        //start the animation
+        window.requestAnimationFrame(animationLoop);
+        </script>
+<html>
