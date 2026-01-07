@@ -44,7 +44,7 @@
                 </td>
                 <td colspan = 2>
                     <div id="cubefall">
-                        <iframe src = 'cubefall\index.html' title=" CubeFall" style = "left: 0%;"></iframe>
+                        <iframe src = 'projects\Cubefall\index.html' title=" CubeFall" style = "left: 0%;"></iframe>
                         <div id="cubefallClick"> click to visit</div>
                     </div>
                 </td>
@@ -54,7 +54,33 @@
                     <div id="Qotd"></div>
                 </td>
             </tr>
-            <tr>
+            
+        </table>
+        
+
+
+
+    <script>
+        /* notes 
+        make page content tileable using js 
+        */
+       //
+       const BaseUrl = "https://raw.githubusercontent.com/Rhinossoross/Rhinossoross.github.io/main/";
+
+        //inforce top of page at page load
+        history.scrollRestoration = "manual";
+        window.scrollTo(0, 0);
+        // quick clear for coverall
+        const coverall =document.getElementById("coverall")
+        coverall.addEventListener("click",()=>{coverall.style.animationPlayState = "running";})
+        
+        //qotd reader
+        const qotd = document.getElementById("Qotd");
+
+
+        //table filler:
+        /*  table format
+        <tr>
                 <td colspan = 3>
                     <h1 style= "animation-duration: 9s;">Mask Maker</h1>
                 </td>
@@ -70,90 +96,67 @@
                     i have been making masks for a while lul
                 </td>
             </tr>
-            <tr>
-                <td colspan = 3>
-                    <h1 style= "animation-duration: 9s;">snow fall</h1>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    this webpage is still under development so is probably very broken lul! dont mind me :)
-                </td>
-                <td colspan = 2>
-                    content 
-                </td>
-            </tr>
-            <tr>
-                <td colspan = 3>
-                    <h1 style= "animation-duration: 9s;">air motor</h1>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    this webpage is still under development so is probably very broken lul! dont mind me :)
-                </td>
-                <td colspan = 2>
-                    content 
-                </td>
-            </tr>
-            <tr>
-                <td colspan = 3>
-                    <h1 style= "animation-duration: 9s;">glados</h1>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    this webpage is still under development so is probably very broken lul! dont mind me :)
-                </td>
-                <td colspan = 2>
-                    content 
-                </td>
-            </tr>
-            <tr>
-                <td colspan = 3>
-                    <h1 style= "animation-duration: 9s;">variable pitch horisontal axis wind turbine</h1>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    this webpage is still under development so is probably very broken lul! dont mind me :)
-                </td>
-                <td colspan = 2>
-                    content 
-                </td>
-            </tr>
-            <tr>
-                <td colspan = 3>
-                    <h1 style= "animation-duration: 9s;">vr immersive game design for education</h1>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    this webpage is still under development so is probably very broken lul! dont mind me :)
-                </td>
-                <td colspan = 2>
-                    content 
-                </td>
-            </tr>
-        </table>
-        
-
-
-
-    <script>
-        /* notes 
-        make page content 
         */
 
-        //infoce top of page at page load
-        history.scrollRestoration = "manual";
-        window.scrollTo(0, 0);
-        // quick clear for coverall
-        const coverall =document.getElementById("coverall")
-        coverall.addEventListener("click",()=>{coverall.style.animationPlayState = "running";})
-        
-        //qotd reader
-        const qotd = document.getElementById("Qotd");
+        projectsList = fetch(BaseUrl + "projectsList.txt")
+            .then(response => response.text())
+            .then(data => {
+                data.split('\n').forEach(project => {
+                    const [title, description,iframeSrc] = project.split('|');
+
+                    const table = document.querySelector('table');
+
+                    // Create title row
+                    const titleRow = document.createElement('tr');
+                    const titleCell = document.createElement('td');
+                    titleCell.colSpan = 3;
+                    const titleHeader = document.createElement('h1');
+                    titleHeader.className = 'crtText';
+                    titleHeader.style.animationDuration = '9s';
+                    titleHeader.textContent = title;
+                    titleCell.appendChild(titleHeader);
+                    titleRow.appendChild(titleCell);
+                    table.appendChild(titleRow);
+
+                    // Create content row
+                    const contentRow = document.createElement('tr');
+
+                    const iframeCell = document.createElement('td');
+                    iframeCell.colSpan = 2;
+                    const iframeDiv = document.createElement('div');
+                    const iframe = document.createElement('iframe');
+                    iframe.src = "/projects/"+title+"/index.html";
+                    iframe.title = title;
+                    iframe.style.left = '0%';
+                    iframeDiv.appendChild(iframe);
+                    const visitDiv = document.createElement('div');
+                    visitDiv.textContent = ' click to visit';
+                    iframeDiv.appendChild(visitDiv);
+                    iframeCell.appendChild(iframeDiv);
+                    contentRow.appendChild(iframeCell);
+
+                    const descriptionCell = document.createElement('td');
+                    descriptionCell.textContent = description;
+                    contentRow.appendChild(descriptionCell);
+
+                    table.appendChild(contentRow);
+                });
+            })
+            .catch(error => {
+                console.error("Error fetching projects list:", error);
+            });
+
+
+
+
+
+
+
+
+
+
+
+        // create text stylisms
         
         (async function(){
         const response = await fetch('https://raw.githubusercontent.com/Rhinossoross/Rhinossoross.github.io/main/Qotd.txt')

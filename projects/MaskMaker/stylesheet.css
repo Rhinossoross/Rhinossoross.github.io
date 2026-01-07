@@ -1,0 +1,25 @@
+body{
+    background: grey;
+}
+
+.hoverHide .hoverHideUnder{
+    opacity:    100%;
+    transition: 1s;
+}
+.hoverHide:hover{
+    opacity:      0%;
+    transition: 1s;
+}
+.hoverHide{
+    position: absolute;
+}
+
+img{
+    width:      60vw;
+    height:     40vw;
+}
+td{
+    width: 33vw;
+    padding: 3vw;
+}
+

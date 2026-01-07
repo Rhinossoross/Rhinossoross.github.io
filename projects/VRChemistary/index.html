@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Wolf's page</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="stylesheet.css">
+    </head>
+    <body>
+        <div id ="decoderText">
+                <h1> MASK MAKING</h1>
+        </div>
+        <div>
+            one of my longest running hobbies it that of making masks, i started when i was very young making masks and steampunk outfits for halloween;
+        </div>
+        <table>
+            <tr><td></td><td></td><td></td></tr>
+            <tr>
+                <td>
+                    This mask was created using stock parts, bronze paint and punk rivets. The eye sockets are fitted with recycled sunglasses lenses with LEDs soldured into a cheek switch. 
+                    the hat is made from recycled a camping mat, and thin eva foam sheets, glued on using 2 part epoxy. this epoxy was used to create fake rivets around the panel edges.
+                    all parts are painted in black, and then a bronze paint is rubed over to give the effect of dirty joints. 
+                </td>
+                <td colspan="2"><img class = "hoverHide" src="img1.png"> <img class = "hoverHideUnder" src="img2.png"></td>
+            </tr>
+            <tr>
+                <td colspan="2"><img class = "hoverHide" src="img3.png"><img class = "hoverHideUnder" src="img4.png"></td>
+                <td >
+                    When I was a teenager I created masks for my favorate content creators, Technoblade, and CorpseHusband, both of these masks were created fully on tinkercad. a increadibly basic CAD program that only really allows Boolian operation on parts;
+                    This cad file was then printed on my old anycubic cheron, and painted.
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    The corpsehusband mask used a similar cheek operated light system as my first mask to power LEDs in the covered eye.
+                </td>
+                <td colspan="2"><img class = "hoverHide" src="img5.png"><img class = "hoverHideUnder" src="img6.png"></td>
+            </tr>
+        </table>
+    <script>
+        const   alphabet = "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWKYZ1234567890!£$%^&()[]#~;:'@,./<>?";
+        const decoderText = document.getElementById("decoderText");
+        var    hiddenText = decoderText.innerText;
+        let previousTimeStamp = 1000;
+        let decoderElapsedSeconds = 0;
+        let SecpmdsPerChar = 0.1;
+        decoderText.addEventListener("click",()=> {decoderElapsedSeconds=0;})
+        //animation mainloop
+        const animationLoop = (currentTimestamp) => {
+            let seccondssincelastframe = (currentTimestamp - previousTimeStamp) /1000;
+            previousTimeStamp = currentTimestamp;
+            decoderElapsedSeconds += seccondssincelastframe;
+            const charactersToReveal = decoderElapsedSeconds/SecpmdsPerChar
+            let animatedText="";
+            let finished =false;
+            for (let i = 0; i < hiddenText.length; i++) {
+                if (finished==true) continue;
+                let char = "";
+                if (i<charactersToReveal) {
+                    char = hiddenText[i]
+                }else{
+                    char = alphabet[Math.floor(Math.random()*alphabet.length)]
+                    finished = true
+                }
+                animatedText +=char;
+            }
+            decoderText.innerText = animatedText;
+            window.requestAnimationFrame(animationLoop);
+        }
+        //start the animation
+        window.requestAnimationFrame(animationLoop);
+    </script>
+    </body>
+</html>
