@@ -2,74 +2,57 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Wolf's page</title>
+        <title>Snowfall Project page</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="stylesheet.css">
     </head>
     <body>
-        <div id ="decoderText">
-                <h1> MASK MAKING</h1>
-        </div>
+        <video autoplay loop muted>
+            <source src="snowfall.mp4" type="video/mp4">
+        </video>
         <div>
-            one of my longest running hobbies it that of making masks, i started when i was very young making masks and steampunk outfits for halloween;
+            The snowfall project was a project given by the university of nottingham to assess my programing capabilities with matlab. I was tasked with procedurally creating 'snow' falling ontop of a tree using pure pixel manipulation. I decided, instead of doing something simple, that eveything would be procedurally genorated, have full collision for all the snow and full custom snow faling physics noteing wind direction, and powder dynamics.
+            <p>
+                <h2> The recomended approach</h2>
+                The project breif recomended creating a 2D array of values between 0 & 2, where 0 represented nothingness, 1 represented snow, and 2 represented the tree. this 2d array became the image. It was suggested that the program would generate 'snow' at the top of the screen, and every frame the program would search the whole image for snow pixels, and move them down one pixel if the pixel below was 0, or leave them if the pixel below was 1 or 2. This would be repeated every frame until all the snow had settled. 
+            </p>
+            <p>
+                <h2> The Issues of that approach</h2>
+                The first issue with this approach is that it is extremly inefficent. For every frame, the program would have to search the entire image for snow pixels, and then check the pixel below them. This would be fine for a small image, but for a large image it would be very slow. 
+                <br>Additionally, this leaves the snow to stack into weird colomns based on where it randomly fell, as the snow has no concept of physics or momentum.
+                <br>This approach would also make it very difficult to implement wind or powder dynamics, as the snow has perception of its surroundings and what is next to it.
+                <br>Finally, This approach just looks bad. there is no way of controlling the colour of the pixels, or adding any sort of shading. 
+            </p>
+            <p>
+                <h2> My solution</h2>
+                Instead of using a 2D array, I useded object oriented programming to create a class based list of snow particles. Each particle knows its own position and has simple physics checkers built into their movement. Every frame, the program loopes through this list of snowflake instances, and calls there move() function. This function picks a random direction based on a weigted list to move (up down left right). by altering the wighting of the options in this list you can simulate gravity, and wind direction, even having snow blowing upwards.
+                <br> The program has 2 seperate images stored in memory. One for the forest and snow in full colour, and one with the forest and snow in 2 bit black and white. This second 'colision' image is used to check if the particle can move to its new position, or not.
+                <br> using the collision image, if a snow particle tries to move into a space currently occupied (white), it enters a condition tree.
+                <br> if the particle is fully surrounded, it skipps all further processing and stays still.
+                <br> If the pixel below the particle is blocked, the particle will stop all movement. unless, the pixel above it is also taken. in which case the particle it will move left or right - based on wind direction or whatever space is free.
+                <br>    -  This is to simulate powder dynamics. if snow is falling onto a pile of snow, it will tend to slide off to the sides rather than stack vertically. This simple rule makes snow pile at a maximum of 45 degrees. as it is the bottom snowflake of the stack that moves, you dont get the strange effect where the flakes on the top are freely skating around on any free horisontal surface.
+                <br> finaly, if the pixel below is free, it chooses its movement based on the weighted list - simulating gravity and wind.
+                <br>
+                <br> This approach allows for much more control over the snow. it also allows for much better visuals, as I can easily change the colour and shading of the tree and environment based on the tree class and custom drawTriangle functions.
+            </p>
+            <p>
+                <h2> Future work</h2>
+                <br> converting this whole project into a real time simulation you can play with on this website instead of a video, it should be possible running entrirely in javascript using html5 canvas. - its just down to how much free time i have!
+                <br>
+                The project files can be found on my github here:
+                <br> 
+                <a href="https://github.com/Rhinossoross/Rhinossoross.io/projects/SnowFall">https://github.com/Rhinossoross/Rhinossoross.io/projects/SnowFall</a>
+            </p>
         </div>
-        <table>
-            <tr><td></td><td></td><td></td></tr>
-            <tr>
-                <td>
-                    This mask was created using stock parts, bronze paint and punk rivets. The eye sockets are fitted with recycled sunglasses lenses with LEDs soldured into a cheek switch. 
-                    the hat is made from recycled a camping mat, and thin eva foam sheets, glued on using 2 part epoxy. this epoxy was used to create fake rivets around the panel edges.
-                    all parts are painted in black, and then a bronze paint is rubed over to give the effect of dirty joints. 
-                </td>
-                <td colspan="2"><img class = "hoverHide" src="img1.png"> <img class = "hoverHideUnder" src="img2.png"></td>
-            </tr>
-            <tr>
-                <td colspan="2"><img class = "hoverHide" src="img3.png"><img class = "hoverHideUnder" src="img4.png"></td>
-                <td >
-                    When I was a teenager I created masks for my favorate content creators, Technoblade, and CorpseHusband, both of these masks were created fully on tinkercad. a increadibly basic CAD program that only really allows Boolian operation on parts;
-                    This cad file was then printed on my old anycubic cheron, and painted.
-                </td>
-            </tr>
-            <tr>
-                <td >
-                    The corpsehusband mask used a similar cheek operated light system as my first mask to power LEDs in the covered eye.
-                </td>
-                <td colspan="2"><img class = "hoverHide" src="img5.png"><img class = "hoverHideUnder" src="img6.png"></td>
-            </tr>
-        </table>
     <script>
-        const   alphabet = "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWKYZ1234567890!£$%^&()[]#~;:'@,./<>?";
-        const decoderText = document.getElementById("decoderText");
-        var    hiddenText = decoderText.innerText;
-        let previousTimeStamp = 1000;
-        let decoderElapsedSeconds = 0;
-        let SecpmdsPerChar = 0.1;
-        decoderText.addEventListener("click",()=> {decoderElapsedSeconds=0;})
-        //animation mainloop
-        const animationLoop = (currentTimestamp) => {
-            let seccondssincelastframe = (currentTimestamp - previousTimeStamp) /1000;
-            previousTimeStamp = currentTimestamp;
-            decoderElapsedSeconds += seccondssincelastframe;
-            const charactersToReveal = decoderElapsedSeconds/SecpmdsPerChar
-            let animatedText="";
-            let finished =false;
-            for (let i = 0; i < hiddenText.length; i++) {
-                if (finished==true) continue;
-                let char = "";
-                if (i<charactersToReveal) {
-                    char = hiddenText[i]
-                }else{
-                    char = alphabet[Math.floor(Math.random()*alphabet.length)]
-                    finished = true
-                }
-                animatedText +=char;
-            }
-            decoderText.innerText = animatedText;
-            window.requestAnimationFrame(animationLoop);
-        }
-        //start the animation
-        window.requestAnimationFrame(animationLoop);
+        //const canvas = document.getElementById('myCanvas');
+        //const ctx = canvas.getContext('2d');
+        //const img = new Image();
+        //img.src = 'background.jpg';
+        //img.onload = () => {
+        //    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        //};
     </script>
     </body>
 </html>
